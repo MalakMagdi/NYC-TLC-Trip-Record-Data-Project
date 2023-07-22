@@ -1,0 +1,171 @@
+
+    
+    
+    CREATE TABLE hour_flag_tab AS
+    SELECT
+        VendorID ,
+        `hour`,
+        count(1) as total_trips_per_hour,
+          "y" AS flag
+    FROM yellow
+    GROUP BY `hour`,VendorID
+    UNION ALL
+   SELECT
+        VendorID ,
+        `hour`,
+        count(1) as total_trips_per_hour,
+          "g" AS flag
+    FROM green
+    GROUP BY `hour`, VendorID
+    UNION ALL
+    SELECT
+        0 as VendorID ,
+        `hour`,
+        count(1) as total_trips_per_hour,
+          "other" AS flag
+    FROM hvfhs_table
+    GROUP BY `hour`, VendorID;
+    
+    
+    
+    
+
+    
+ CREATE TABLE day_tab AS
+
+    SELECT 
+    VendorID,
+    day_name
+    , COUNT(1) AS total_trips_per_day_name,
+    "g" AS flag
+FROM
+    green
+GROUP BY day_name
+    UNION ALL
+   SELECT 
+   VendorID,
+    day_name
+    , COUNT(1) AS total_trips_per_day_name,
+     "y" AS flag
+FROM
+    yellow
+GROUP BY day_name
+ UNION ALL
+    SELECT
+        0 as VendorID ,
+        day_name,
+        count(1) as total_trips_per_hour,
+          "other" AS flag
+    FROM hvfhs_table
+    GROUP BY day_name ;
+    
+
+
+
+
+
+
+    
+   
+ 
+create table pu_loc_year AS
+SELECT  VendorID,
+        `year`,
+        PULocationID,
+        count(1) as total_trip ,
+        "y" AS flag
+    FROM yellow 
+    GROUP BY PULocationID,`year`,VendorID
+   union all  
+ SELECT  VendorID,
+        `year`,
+        PULocationID,
+        count(1) as total_trips ,
+         "g" AS flag
+    FROM green
+    GROUP BY PULocationID,`year`,VendorID
+     UNION ALL
+    SELECT
+        0 as VendorID ,
+        `year`,
+        PULocationID,
+        count(1) as total_trips_per_hour,
+          "other" AS flag
+    FROM hvfhs_table
+    GROUP BY PULocationID,`year`,VendorID ;
+    
+ 
+ 
+ 
+    
+    
+
+
+
+select distinct `month` , avg(fare_amount)  over(partition by `month`) as avg_per_month , avg(fare_amount)  over() as avg_fare_total , "g" as flag 
+from green
+union all
+select distinct `month` , avg(fare_amount)  over(partition by `month`) as avg_per_month , avg(fare_amount)  over() as avg_fare_total , "y" as flag 
+from yellow;
+
+
+
+
+
+
+CREATE TABLE PULocationID_year_cube AS
+ 
+    SELECT
+        `year`,
+        round(SUM(trip_distance)) as trip_distance,
+      round( SUM(fare_amount)) as fare_amount ,
+      round( SUM(extra)) as extra ,
+      round( SUM(mta_tax)) as mta_tax ,
+      round( SUM(tip_amount)) as tip_amount ,
+       round(SUM(tolls_amount)) as  tolls_amount ,
+      round( SUM(improvement_surcharge)) as improvement_surcharge ,
+       round(SUM(total_amount) )as total_amount  ,
+       round(SUM(congestion_surcharge)) as congestion_surcharge ,
+        0.0 AS airport_fee,
+        "g" as flag
+    FROM green
+    GROUP BY  `year`
+    UNION ALL
+    SELECT
+        
+        `year`,
+	 round(SUM(trip_distance)) as trip_distance,
+      round( SUM(fare_amount)) as fare_amount ,
+      round( SUM(extra)) as extra ,
+      round( SUM(mta_tax)) as mta_tax ,
+      round( SUM(tip_amount)) as tip_amount ,
+       round(SUM(tolls_amount)) as  tolls_amount ,
+      round( SUM(improvement_surcharge)) as improvement_surcharge ,
+       round(SUM(total_amount) )as total_amount  ,
+       round(SUM(congestion_surcharge)) as congestion_surcharge ,
+      round( SUM(airport_fee)) AS airport_fee,
+        "y" as flag
+    FROM yellow
+    GROUP BY  `year`
+     UNION ALL
+    SELECT
+        `year`,
+	  round(SUM(trip_miles)) as trip_distance,
+      round( SUM(base_passenger_fare)) as fare_amount ,
+      round( SUM(bcf)) as extra ,
+      round( SUM(sales_tax)) as mta_tax ,
+      round( SUM(tips)) as tip_amount ,
+       round(SUM(tolls)) as  tolls_amount ,
+      round( SUM(driver_pay)) as improvement_surcharge ,
+       0.0 as total_amount  ,
+       round(SUM(congestion_surcharge)) as congestion_surcharge ,
+      round( SUM(airport_fee)) AS airport_fee,
+      "other" as flag
+    FROM hvfhs_table
+    GROUP BY `year` ;
+    
+
+
+
+
+

@@ -1,0 +1,86 @@
+-- Table for yellowSchema
+CREATE TABLE yellow (
+  VendorID INT,
+  tpep_pickup_datetime TIMESTAMP,
+  tpep_dropoff_datetime TIMESTAMP,
+  passenger_count INT,
+  trip_distance FLOAT,
+  RatecodeID VARCHAR(40),
+  store_and_fwd_flag VARCHAR(10),
+  PULocationID INT,
+  DOLocationID INT,
+  payment_type VARCHAR(40),
+  fare_amount FLOAT,
+  extra FLOAT,
+  mta_tax FLOAT,
+  tip_amount FLOAT,
+  tolls_amount FLOAT,
+  improvement_surcharge FLOAT,
+  total_amount FLOAT,
+  congestion_surcharge FLOAT,
+  airport_fee FLOAT,
+  `hour` int ,
+  `day` INT ,
+  `month` INT,
+  `year` INT,
+  day_name VARCHAR(40)
+);
+
+-- Table for greenSchema
+CREATE TABLE green (
+  VendorID INT,
+  lpep_pickup_datetime TIMESTAMP,
+  lpep_dropoff_datetime TIMESTAMP,
+  store_and_fwd_flag VARCHAR(20),
+  RatecodeID VARCHAR(100),
+  PULocationID INT,
+  DOLocationID INT,
+  passenger_count INT,
+  trip_distance FLOAT,
+  fare_amount FLOAT,
+  extra FLOAT,
+  mta_tax FLOAT,
+  tip_amount FLOAT,
+  tolls_amount FLOAT,
+  ehail_fee FLOAT,
+  improvement_surcharge FLOAT,
+  total_amount FLOAT,
+  payment_type  VARCHAR(100),
+  trip_type VARCHAR(100),
+  congestion_surcharge FLOAT,
+   `hour` int ,
+  `day` INT ,
+  `month` INT,
+  `year` INT,
+  day_name VARCHAR(40)
+  
+);
+
+CREATE TABLE hvfhs_table (
+  pickup_datetime TIMESTAMP,
+  dropoff_datetime TIMESTAMP,
+  PULocationID INT,
+  DOLocationID INT,
+  trip_miles FLOAT,
+  trip_time INT,
+  base_passenger_fare FLOAT,
+  tolls FLOAT,
+  bcf FLOAT,
+  sales_tax FLOAT,
+  congestion_surcharge FLOAT,
+  airport_fee FLOAT,
+  tips FLOAT,
+  driver_pay FLOAT,
+  `hour` int ,
+  `day` INT ,
+  `month` INT,
+  `year` INT,
+  day_name VARCHAR(40)
+);
+
+
+
+
+
+
+
