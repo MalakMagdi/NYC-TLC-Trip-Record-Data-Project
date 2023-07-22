@@ -29,6 +29,10 @@ The data warehouse stores the cleaned and transformed data in a structured manne
 ## Time Series Analysis
 
 To derive meaningful insights from the data, a time series analysis is conducted using Power BI. The analysis results are visualized through interactive dashboards, enabling users to explore trends and patterns effectively.
+![Dashboard1](https://github.com/MalakMagdi/TLC-Trip-Record-Data-Project/assets/110945022/105d1669-2faa-403b-8dbb-1e0bed6a719a)
+![Dashboard2](https://github.com/MalakMagdi/TLC-Trip-Record-Data-Project/assets/110945022/c0e0b343-37fc-4435-aa10-a26c968163ca)
+
+
 
 ## Technologies Used
 
